@@ -1,0 +1,3 @@
+tabs: ["main.cpp"]
+terminals: ["g++ main.cpp -o main.out && ./main.out"]
+run-button: "g++ main.cpp -o main.out && ./main.out"
