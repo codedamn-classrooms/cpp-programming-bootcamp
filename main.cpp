@@ -1,86 +1,54 @@
-#include <cstdlib>
 #include <iostream>
+#include <cstdlib>
 #include <string>
+#include <cmath>
+#include <ctime>
+
 using namespace std;
 
 int main()
 {
 
-    // ----- CONDITIONAL OPERATORS -----
-    // Conditional operators help you to perform
-    // different actions depending on conditions
-    // ==, !=, <, >, <=, >=
+    // There are numerous math functions provided by
+    // cmath en.cppreference.com/w/cpp/numeric/math
 
-    // ----- LOGICAL OPERATORS -----
-    // Logical operators allow you to combine conditions
-    // && : If both are true it returns true
-    // || : If either are true it returns true
-    // ! : Converts true into false and vice versa
+    cout << "abs(-10) = " << abs(-10) << endl;
+    cout << "max(5, 4) = " << max(5, 4) << endl;
+    cout << "min(5, 4) = " << min(5, 4) << endl;
+    cout << "fmax(5.3, 4.3) = " << fmax(5.3, 4.3) << endl;
+    cout << "fmin(5.3, 4.3) = " << fmin(5.3, 4.3) << endl;
+    cout << "ceil(10.45) = " << ceil(10.45) << endl;
+    cout << "floor(10.45) = " << floor(10.45) << endl;
+    cout << "round(10.45) = " << round(10.45) << endl;
+    cout << "pow(2,3) = " << pow(2, 3) << endl;
+    cout << "sqrt(100) = " << sqrt(100) << endl;
+    cout << "cbrt(1000) = " << cbrt(1000) << endl;
 
-    // ----- EXAMPLE : IS A BIRTHDAY IMPORTANT -----
-    // 1 - 18, 21, 50, > 65 : Important
-    // All others are not important
+    // e ^ x
+    cout << "exp(1) = " << exp(1) << endl;
 
-    string sAge = "0";
-    cout << "Enter your age : ";
-    cin >> sAge;
-    int nAge = stoi(sAge);
+    // 2 ^ x
+    cout << "exp2(1) = " << exp2(1) << endl;
 
-    // if and else is used to execute different code
-    // depending on conditions
-    if ((nAge >= 1) && (nAge <= 18))
-    {
-        cout << "Important Birthday\n";
-    }
-    else if ((nAge == 21) || (nAge == 50))
-    {
-        cout << "Important Birthday\n";
-    }
-    else if (nAge >= 65)
-    {
-        cout << "Important Birthday\n";
-    }
-    else
-    {
-        cout << "Not an Important Birthday\n";
-    }
+    // e * e * e ~= 20 so log(20.079) ~= 3
+    cout << "log(20.079) = " << log(20.079) << endl;
 
-    // ----- PROBLEM : DETERMINE SCHOOL GRADE -----
-    // If age 5 "Go to Kindergarten"
-    // Ages 6 through 17 go to grades 1 through 12
-    // If age > 17 "Go to college"
-    // Enter age : 2
-    // Too young for school
-    // Enter age : 8
-    // Go to grade 3
-    // Try to do with 15 or less lines of code
+    // 2 * 2 * 2 = 8
+    cout << "log2(8) = " << log2(8) << endl;
 
-    string sAge2 = "0";
-    int nGrade2 = 0;
-    cout << "Enter age : ";
-    cin >> sAge2;
-    int nAge2 = stoi(sAge);
+    // Hypotenuse : SQRT(A^2 + B^2)
+    cout << "hypot(2,3) = " << hypot(2, 3) << endl;
 
-    if (nAge2 < 5)
-        cout << "To young for school\n";
-    else if (nAge2 == 5)
-        cout << "Go to Kindergarten\n";
-    else if ((nAge2 > 5) && (nAge2 <= 17))
-    {
-        nGrade2 = nAge2 - 5;
-        cout << "Go to grade " << nGrade2 << "\n";
-    }
-    else
-        cout << "Go to college\n";
+    // Also sin, cos, tan, asin, acos, atan, atan2,
+    // sinh, cosh, tanh, asinh, acosh, atanh
 
-    // A ternary operator works like a compact if else
-    // statement. If the condition is true the first
-    // value is stored and otherwise the second
-    int age43 = 43;
-    bool canIVote = (age43 >= 18) ? true : false;
-    // Shows bool values as true or false
-    cout.setf(ios::boolalpha);
-    cout << "Can Derek Vote : " << canIVote << endl;
+    // We need to seed the random number generator
+    // time() returns the number of seconds
+    // since 1, 1, 1970
+    // #include <ctime>
+    srand(time(NULL));
 
-    return 0;
+    // Generate a random number up to 10
+    int secretNum = rand() % 11;
+    cout << "Secret Number : " << secretNum << "\n";
 }
