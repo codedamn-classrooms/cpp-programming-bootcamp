@@ -6,53 +6,81 @@ using namespace std;
 int main()
 {
 
-    // Create a string
-    string sQuestion("Enter Number 1 : ");
+    // ----- CONDITIONAL OPERATORS -----
+    // Conditional operators help you to perform
+    // different actions depending on conditions
+    // ==, !=, <, >, <=, >=
 
-    // Create empty strings to store values
-    string sNum1, sNum2;
+    // ----- LOGICAL OPERATORS -----
+    // Logical operators allow you to combine conditions
+    // && : If both are true it returns true
+    // || : If either are true it returns true
+    // ! : Converts true into false and vice versa
 
-    cout << sQuestion;
+    // ----- EXAMPLE : IS A BIRTHDAY IMPORTANT -----
+    // 1 - 18, 21, 50, > 65 : Important
+    // All others are not important
 
-    // Receive user input and store it
-    cin >> sNum1;
+    string sAge = "0";
+    cout << "Enter your age : ";
+    cin >> sAge;
+    int nAge = stoi(sAge);
 
-    cout << "Enter Number 2 : ";
-    cin >> sNum2;
+    // if and else is used to execute different code
+    // depending on conditions
+    if ((nAge >= 1) && (nAge <= 18))
+    {
+        cout << "Important Birthday\n";
+    }
+    else if ((nAge == 21) || (nAge == 50))
+    {
+        cout << "Important Birthday\n";
+    }
+    else if (nAge >= 65)
+    {
+        cout << "Important Birthday\n";
+    }
+    else
+    {
+        cout << "Not an Important Birthday\n";
+    }
 
-    // Convert from strings to int
-    // stod converts from strings to doubles
-    int nNum1 = stoi(sNum1);
-    int nNum2 = stoi(sNum2);
+    // ----- PROBLEM : DETERMINE SCHOOL GRADE -----
+    // If age 5 "Go to Kindergarten"
+    // Ages 6 through 17 go to grades 1 through 12
+    // If age > 17 "Go to college"
+    // Enter age : 2
+    // Too young for school
+    // Enter age : 8
+    // Go to grade 3
+    // Try to do with 15 or less lines of code
 
-    // Math Operators
-    printf("%d + %d = %d\n", nNum1, nNum2, (nNum1 + nNum2));
-    printf("%d - %d = %d\n", nNum1, nNum2, (nNum1 - nNum2));
-    printf("%d * %d = %d\n", nNum1, nNum2, (nNum1 * nNum2));
-    printf("%d / %d = %d\n", nNum1, nNum2, (nNum1 / nNum2));
-    printf("%d %% %d = %d\n", nNum1, nNum2, (nNum1 % nNum2));
+    string sAge2 = "0";
+    int nGrade2 = 0;
+    cout << "Enter age : ";
+    cin >> sAge2;
+    int nAge2 = stoi(sAge);
 
-    // ----- PROBLEM : MILES TO KILOMETERS -----
-    // Sample knowing that kilometers = miles * 1.60934
-    // Enter Miles : 5
-    // 5 miles equals 8.0467 kilometers
+    if (nAge2 < 5)
+        cout << "To young for school\n";
+    else if (nAge2 == 5)
+        cout << "Go to Kindergarten\n";
+    else if ((nAge2 > 5) && (nAge2 <= 17))
+    {
+        nGrade2 = nAge2 - 5;
+        cout << "Go to grade " << nGrade2 << "\n";
+    }
+    else
+        cout << "Go to college\n";
 
-    // Create needed variables
-    string sMiles;
-    double dMiles, dKilometers;
-
-    // Ask user to input miles and store string input
-    cout << "Enter Miles : ";
-    cin >> sMiles;
-
-    // Convert from string to double
-    dMiles = stod(sMiles);
-
-    // Convert from miles to km
-    dKilometers = dMiles * 1.60934;
-
-    // Output the results
-    printf("%.1f miles equals %.4f kilometers\n", dMiles, dKilometers);
+    // A ternary operator works like a compact if else
+    // statement. If the condition is true the first
+    // value is stored and otherwise the second
+    int age43 = 43;
+    bool canIVote = (age43 >= 18) ? true : false;
+    // Shows bool values as true or false
+    cout.setf(ios::boolalpha);
+    cout << "Can Derek Vote : " << canIVote << endl;
 
     return 0;
 }
