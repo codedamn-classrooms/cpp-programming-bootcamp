@@ -9,46 +9,81 @@ using namespace std;
 int main()
 {
 
-    // There are numerous math functions provided by
-    // cmath en.cppreference.com/w/cpp/numeric/math
+    // Another thing every programming language must do is to provide a way to
+    // perform the same action multiple times. The keyword for is one one way in
+    // which you can loop through code while executing repeatedly.
 
-    cout << "abs(-10) = " << abs(-10) << endl;
-    cout << "max(5, 4) = " << max(5, 4) << endl;
-    cout << "min(5, 4) = " << min(5, 4) << endl;
-    cout << "fmax(5.3, 4.3) = " << fmax(5.3, 4.3) << endl;
-    cout << "fmin(5.3, 4.3) = " << fmin(5.3, 4.3) << endl;
-    cout << "ceil(10.45) = " << ceil(10.45) << endl;
-    cout << "floor(10.45) = " << floor(10.45) << endl;
-    cout << "round(10.45) = " << round(10.45) << endl;
-    cout << "pow(2,3) = " << pow(2, 3) << endl;
-    cout << "sqrt(100) = " << sqrt(100) << endl;
-    cout << "cbrt(1000) = " << cbrt(1000) << endl;
+    // For as long as you have more hamburger to eat, keep eating that hamburger.
+    // For loops come in many forms.
 
-    // e ^ x
-    cout << "exp(1) = " << exp(1) << endl;
+    // Cycle through each value and print it
+    for (int i = 0; i <= 10; ++i)
+    {
+        cout << i << endl;
+    }
 
-    // 2 ^ x
-    cout << "exp2(1) = " << exp2(1) << endl;
+    // You can cycle through arrays which are lists of values
+    int arr1[] = {1, 2, 3};
+    // We have to calculate the array size by providing a sample
+    // of the type of data it takes up
+    int arrSize = sizeof(arr1) / sizeof(arr1[0]);
+    for (int i = 0; i < arrSize; ++i)
+    {
+        cout << arr1[i] << endl;
+    }
 
-    // e * e * e ~= 20 so log(20.079) ~= 3
-    cout << "log(20.079) = " << log(20.079) << endl;
+    // An abbreviated for loop
+    for (auto x : arr1)
+        cout << x << endl;
 
-    // 2 * 2 * 2 = 8
-    cout << "log2(8) = " << log2(8) << endl;
+    // PROBLEM
+    // Now before you solve a problem I want to teach you how to test if a number
+    // is odd or even. If you divide any even number by 2 it will not have a
+    // remainder. The modulus operator provides the remainder of a division as
+    // I covered previously.
 
-    // Hypotenuse : SQRT(A^2 + B^2)
-    cout << "hypot(2,3) = " << hypot(2, 3) << endl;
+    // So if num % 2 == 0 we know that num is an even value.
+    int num = 4;
+    string isEven = ((num % 2) == 0) ? "Even" : "Odd";
+    cout << "Even or Odd : " << isEven << "\n";
 
-    // Also sin, cos, tan, asin, acos, atan, atan2,
-    // sinh, cosh, tanh, asinh, acosh, atanh
+    // Use the knowledge you have gained to print out all odd numbers from 1 to 20.
+    // Feel free to look at everything on this page to help
 
-    // We need to seed the random number generator
-    // time() returns the number of seconds
-    // since 1, 1, 1970
-    // #include <ctime>
-    srand(time(NULL));
+    // SOLUTION
+    for (int i = 0; i <= 20; ++i)
+    {
+        if ((i % 2) != 0)
+        {
+            cout << i << endl;
+        }
+    }
 
-    // Generate a random number up to 10
-    int secretNum = rand() % 11;
-    cout << "Secret Number : " << secretNum << "\n";
+    // PROBLEM
+    // In this problem you will calculate how much money a person will have after
+    // investing for 10 years. Compounding interest is the act of reinvesting each years
+    // interest payment and then receiving interest on the initial value as well as on
+    // interest payments.
+
+    // Your program will :
+    // 1. Have the user enter their investment amount and expected interest (Initial investment + additional added at end of each year)
+    // 2. Each year their investment will increase by their investment + their investment
+    // * the interest rate
+    // 3. Print out their earnings after a 10 year period
+
+    float investment, interest, total;
+
+    cout << "How Much to Invest : ";
+    cin >> investment;
+    total = investment;
+    cout << "Interest Rate : ";
+    cin >> interest;
+    interest = interest * .01;
+    for (int i = 0; i < 10; ++i)
+    {
+        total = total + investment + (total * interest);
+    }
+    printf("Investment After 10 Years : %.2f\n", total);
+
+    return 0;
 }
