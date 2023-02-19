@@ -4,88 +4,127 @@
 #include <cmath>
 #include <ctime>
 #include <array>
+#include <vector>
+#include <sstream>
+#include <algorithm> // Needed for find
 
 using namespace std;
 
 int main()
 {
 
-    // An array is a collection of data of the same type
-    // Declare an array of ints with the value of 1
-    // Once the size is defined it can't change
-    int arrNums[10] = {1};
+    // Use vectors when you don't know how big your
+    // arrays may be
 
-    // Leave out the array length
-    int arrNums2[] = {1, 2, 3};
+    // Create a vector with 2 spaces to start
+    vector<int> vecRandNums(2);
 
-    // Create an array and assign some values
-    int arrNums3[5] = {8, 9};
+    // Add values
+    vecRandNums[0] = 10;
+    vecRandNums[1] = 20;
 
-    // Access array values using indexes starting with 0
-    cout << "1st Value : " << arrNums3[0] << endl;
+    // Add another value to the vector
+    vecRandNums.push_back(30);
 
-    // Change a value
-    arrNums3[0] = 7;
-    cout << "1st Value : " << arrNums3[0] << endl;
+    // Get size of vector
+    cout << "Vector Size : " << vecRandNums.size() << endl;
 
-    // Get array size by getting the number of bytes
-    // set aside for the array and then divide by the size
-    // of the 1st element
-    cout << "Array size : " << sizeof(arrNums3) / sizeof(*arrNums3) << endl;
+    // Get last value
+    cout << "Last Index : " << vecRandNums[vecRandNums.size() - 1] << endl;
 
-    // Print array items
-    for (auto x : arrNums2)
-        cout << x << endl;
+    // Check if value in vector
+    // Create an iterator that is used to cycle through
+    // a range of values
+    vector<int>::iterator it;
+    // If find finds 20 it provides an iterator
+    it = find(vecRandNums.begin(), vecRandNums.end(), 20);
+    // We can get the value using the dereference operator
+    // which I'll cover in the next video
+    cout << *it << endl;
 
-    // Print the long way by first calculating the size
-    int arrSize = sizeof(arrNums2) / sizeof(arrNums2[0]);
-    for (int i = 0; i < arrSize; ++i)
+    // Convert a string into an array
+    string sSentence = "This is a random string";
+
+    // Create a vector
+    vector<string> vecsWords;
+
+    // A stringstream object receives strings separated
+    // by a space and then spits them out 1 by 1
+    stringstream ss(sSentence);
+
+    // Will temporarily hold each word in the string
+    string sIndivStr;
+
+    // Defines what separates the words
+    char cSpace = ' ';
+
+    // While there are more words to extract keep
+    // executing
+    // getline takes strings from a stream of words stored
+    // in the stream and each time it finds a blanks space
+    // it stores the word proceeding the space in sIndivStr
+    while (getline(ss, sIndivStr, cSpace))
     {
-        cout << arrNums2[i] << endl;
+
+        // Put the string into a vector
+        vecsWords.push_back(sIndivStr);
     }
 
-    // We can create array objects which come with functions
-    array<int, 5> arrNums4 = {9, 8, 7, 6};
-    // Begin and End point to those parts of the array
-    for (auto j = arrNums4.begin(); j != arrNums4.end(); ++j)
+    // Cycle through each index in the vector and print
+    // out each word
+    for (int i = 0; i < vecsWords.size(); ++i)
     {
-        cout << " " << *j;
+        cout << vecsWords[i] << endl;
     }
-    cout << endl;
 
-    // We can get its size and max size
-    cout << "Size : " << arrNums4.size() << endl;
-    cout << "Max Size : " << arrNums4.max_size() << endl;
+    // PROBLEM
+    // Enter calculation (ex. 5 + 6) : 10 - 6
+    // 10.0 - 6.0 = 4.0
 
-    // We can check if empty
-    cout << "Empty : " << (arrNums4.empty() ? "Yes" : "No") << endl;
+    double dbNum1 = 0, dbNum2 = 0;
+    string sCalc = "";
+    vector<string> vecsCalc;
 
-    // Get values in multiple ways
-    cout << "1st : " << arrNums4[0] << endl;
-    cout << "2nd : " << arrNums4.at(1) << endl;
+    cout << "Enter calculation (ex. 5 + 6): ";
+    getline(cin, sCalc);
 
-    // Overwrite and fill with a value
-    arrNums4.fill(5);
+    stringstream ss2(sCalc);
+    string indivStr;
+    char space = ' ';
 
-    // You can swap values in arrays as long as the type
-    // and size is the same
-    array<int, 5> arrNums5 = {9, 8, 7, 6};
-    // Values in 4 go into 5
-    arrNums5.swap(arrNums4);
-    for (auto x : arrNums5)
-        cout << x << endl;
+    while (getline(ss2, indivStr, space))
+    {
+        vecsCalc.push_back(indivStr);
+    }
 
-    // If you need a resizable array it is better to use
-    // vectors which I'll cover next time
+    dbNum1 = stoi(vecsCalc[0]);
+    dbNum2 = stoi(vecsCalc[2]);
+    string operation = vecsCalc[1];
 
-    // A multidimensional array is like a spreadsheet
-    // If you think of each as layers that contain columns
-    // 1st Number : Which layer
-    // 2nd Number : Which column
-    // 3rd Number : Which row
-    int arrnNums4[2][2][2] = {{{1, 2}, {3, 4}},
-                              {{5, 6}, {7, 8}}};
-    cout << arrnNums4[1][1][1] << endl;
+    if (operation == "+")
+    {
+        printf("%.1f + %.1f = %.1f\n", dbNum1, dbNum2,
+               (dbNum1 + dbNum2));
+    }
+    else if (operation == "-")
+    {
+        printf("%.1f - %.1f = %.1f\n", dbNum1, dbNum2,
+               (dbNum1 - dbNum2));
+    }
+    else if (operation == "*")
+    {
+        printf("%.1f * %.1f = %.1f\n", dbNum1, dbNum2,
+               (dbNum1 * dbNum2));
+    }
+    else if (operation == "/")
+    {
+        printf("%.1f / %.1f = %.1f\n", dbNum1, dbNum2,
+               (dbNum1 / dbNum2));
+    }
+    else
+    {
+        cout << "Please enter only +, -, *, or /\n";
+    }
 
     return 0;
 }
