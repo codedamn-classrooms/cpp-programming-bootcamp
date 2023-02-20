@@ -9,86 +9,79 @@
 #include <algorithm>
 using namespace std;
 
-// ----- FUNCTION PROTOTYPES -----
-// You define the return type and data types for functions
-// using a function prototype so main knows what is to be
-// expected from this function
+// Function Prototypes
 
-double AddNumbers(double num1, double num2);
+// This function receives pointers
+void AssignAge3(int *pAge);
 
-void AssignAge(int age);
-
-int AssignAge2(int age);
+// Double values in array passed
+void DoubleArray(int *arr, int size);
 
 int main()
 {
 
-    // ----- FUNCTIONS -----
-    // Code that gets above 8 to 10 lines should be broken off
-    // into a separate function to better organize your code
-    // and to promote reuse
-
-    // ----- FUNCTION 1 -----
-
-    double num1, num2;
-
-    cout << "Enter Num 1 : ";
-    cin >> num1;
-
-    cout << "Enter Num 2 : ";
-    cin >> num2;
-
-    // Call the function
-    printf("%.1f + %.1f = %.1f\n", num1, num2, AddNumbers(num1, num2));
-
-    // ----- END OF FUNCTION 1 -----
-
-    // ----- FUNCTION 2 -----
-
-    // Variables in a function are local to that function
-
-    // Variables values changed in a function don't
-    // translate globally
     int age = 43;
-    AssignAge(age);
-    cout << "New Age " << age << endl;
 
-    // ----- END OF FUNCTION 2 -----
+    // A Pointer stores a address in memory
+    // You declare a pointer to be of the same type as the
+    // data type to which it points
+    // If you are storing the address of an int then the
+    // pointer is an int
+    // When you declare a pointer give it a null value
+    int *pAge = NULL;
 
-    // ----- FUNCTION 3 -----
+    // The reference operator returns the address for a
+    // variable that can be stored in a pointer
+    pAge = &age;
 
-    // You could change the value by passing it back
-    age = AssignAge2(age);
-    cout << "New Age " << age << endl;
+    // Print the address Hexidecimal Number
+    cout << "Address : " << pAge << endl;
 
-    // ----- END OF FUNCTION 3 -----
+    // Get the value at that address with the dereference operator
+    cout << "Value at Address : " << *pAge << endl;
+
+    // We can create a pointer to an array and cycle through
+    // the data with ++ and --
+    int intArray[] = {1, 2, 3, 4};
+    int *pIntArray = intArray;
+
+    cout << "1st " << *pIntArray << " Address " << pIntArray << endl;
+    pIntArray++;
+    cout << "2nd " << *pIntArray << " Address " << pIntArray << endl;
+    pIntArray--;
+    cout << "1st " << *pIntArray << " Address " << pIntArray << endl;
+
+    // You can pass a pointer to a function and then the
+    // function can change that variables value globally
+    // Send the address for age to the function
+    AssignAge3(&age);
+
+    cout << "Pointer Age " << age << endl;
+
+    // Create an array and double values
+    int arr[] = {1, 2, 3, 4};
+    DoubleArray(arr, 4);
+    for (int i = 0; i < 4; ++i)
+    {
+        cout << "Array " << arr[i] << endl;
+    }
 
     return 0;
 }
 
-// FUNCTIONS
-
-// ----- FUNCTIONS -----
-// A function starts with the data type it will return or void
-// if no value is returned
-// You also list the data types for the parameters passed into
-// a function and you may assign them default values
-
-// FUNCTION 1
-double AddNumbers(double num1 = 0, double num2 = 0)
+// Function that receives a pointer
+void AssignAge3(int *pAge)
 {
-    return num1 + num2;
+
+    // Use dereference operator to change the value at the address
+    *pAge = 22;
 }
 
-// FUNCTION 2
-void AssignAge(int age)
+// Double values in array
+void DoubleArray(int *arr, int size)
 {
-    age = 24;
-}
-
-// FUNCTION 3
-int AssignAge2(int age)
-{
-    age = 24;
-    return age;
+    for (int i = 0; i < size; ++i)
+    {
+        arr[i] = arr[i] * 2;
+    }
 }
