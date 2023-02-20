@@ -1,123 +1,155 @@
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 #include <string>
-#include <cmath>
-#include <ctime>
-#include <array>
 #include <vector>
+#include <numeric>
 #include <sstream>
-#include <algorithm>
 using namespace std;
-
-// I love the range function in Python so I'll show how to
-// make it in C++
-vector<int> Range(int start, int max, int step);
 
 int main()
 {
 
-    // Create a function that receives a starting value,
-    // max value and an increment amount between
-    // values and receive a vector in return
+    // A C character string is an array of characters
+    // with a null character at the end \0
+    char cString[] = {'A', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\0'};
+    cout << cString << endl;
 
-    vector<int> range = Range(1, 10, 2);
+    // Get array size (null is included)
+    cout << "Array Size " << sizeof(cString) << endl;
 
-    // Cycle through the vector
-    for (auto y : range)
-    {
+    // C strings are troublesome because if you forget \0, or
+    // add to much information it can lead your program to crash,
+    // or for your system to crash
+
+    // You can create a vector of strings
+    vector<string> strVec(10);
+
+    // C++ string can grow in size and is much safer
+    string str("I'm a string");
+    strVec[0] = str;
+
+    // You can access characters with an index
+    cout << str[0] << endl;
+
+    // You can also use at()
+    cout << str.at(0) << endl;
+
+    // Front returns first char and back returns last
+    cout << str.front() << " " << str.back() << endl;
+
+    // Get the string length
+    cout << "Length : " << str.length() << endl;
+
+    // You can copy a string to another
+    string str2(str);
+    strVec[1] = str2;
+
+    // You can copy after the 1st 4 characters
+    string str3(str, 4);
+    strVec[2] = str3;
+
+    // Repeat a value to make a string
+    string str4(5, 'x');
+    strVec[3] = str4;
+
+    // Combine strings with append or +
+    strVec[4] = str.append(" and your not");
+    str += " and your not";
+
+    // Append part of a string
+    str.append(str, 34, 37);
+    strVec[5] = str;
+
+    // Erase characters from a string from an index to another
+    // or the last
+    str.erase(13, str.length() - 1);
+    strVec[6] = str;
+
+    for (auto y : strVec)
         cout << y << endl;
-    }
 
-    // ----- EXCEPTION HANDLING EX 1 -----
-    // Exceptions are errors that occur when things don't
-    // go as expected.
-    // 1. You expect and int and get a string
-    // 2. You expect a file to be available and it isn't
-    // 3. You expect the user to not enter 0 and they do
+    // find() returns index where pattern is found
+    // or npos
+    if (str.find("string") != string::npos)
+        cout << "1st not " << str.find("string") << endl;
 
-    // You try to execute code that could be troublesome
-    // and if an error occurs you catch it and throw
-    // it to another block of code for handling
+    // substr(x, y) returns a substring starting at
+    // index x with a length of y
+    cout << "Substr " << str.substr(6, 6) << endl;
 
-    double num1 = 0, num2 = 0;
+    // Reverse a string by passing the beginning and end
+    // of a string
+    reverse(str.begin(), str.end());
+    cout << "Reverse " << str << endl;
 
-    cout << "Enter number 1 : ";
-    cin >> num1;
-    cout << "Enter number 2 : ";
-    cin >> num2;
+    // Case conversion
+    transform(str2.begin(), str2.end(), str2.begin(), ::toupper);
+    cout << "Upper " << str2 << endl;
+    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);
+    cout << "Lower " << str2 << endl;
 
-    try
+    // You can get the ascii code for a char by saving
+    // the char as an int or with (int)
+    // a - z : 97 - 122
+    // A - Z : 65 - 90
+    char aChar = 'Z';
+    int aInt = aChar;
+    cout << "A Code " << (int)'a' << endl;
+
+    // Convert int to string
+    string strNum = to_string(1 + 2);
+    cout << "String " << strNum << endl;
+
+    // ----- PROBLEM : SECRET STRING -----
+    // Receive an uppercase string and hide its meaning
+    // by turning it into ascii codes
+    // Translate it back to the original letters
+
+    string normalStr, secretStr = "";
+    cout << "Enter your string in uppercase : ";
+    cin >> normalStr;
+
+    // Cycle through each character converting
+    // them into ascii codes which are stored in
+    // a string
+    for (char c : normalStr)
+        secretStr += to_string((int)c);
+    // SOLVES SECOND PROBLEM
+    // secretStr += to_string((int)c - 23);
+
+    cout << "Secret : " << secretStr << endl;
+
+    normalStr = "";
+
+    // Cycle through numbers in string 2 at a time
+    for (int i = 0; i < secretStr.length(); i += 2)
     {
-        if (num2 == 0)
-        {
-            throw "Division by zero is not possible";
-        }
-        else
-        {
 
-            printf("%.1f / %.1f = %.2f\n", num1, num2,
-                   (num1 / num2));
-        }
+        // Get the 2 digit ascii code
+        string sCharCode = "";
+        sCharCode += secretStr[i];
+        sCharCode += secretStr[i + 1];
+
+        // Convert the string into int
+        int nCharCode = stoi(sCharCode);
+
+        // Convert the int into a char
+        char chCharCode = nCharCode;
+        // SOLVES SECOND PROBLEM
+        // char chCharCode = nCharCode + 23;
+
+        // Store the char in normalStr
+        normalStr += chCharCode;
     }
 
-    catch (const char *exp)
-    {
-        cout << "Error : " << exp << endl;
-    }
+    cout << "Original : " << normalStr << endl;
 
-    // ----- END OF EXCEPTION HANDLING EX 1 -----
+    // ----- END OF PROBLEM : SECRET STRING -----
 
-    // ----- EXCEPTION HANDLING EX 2 -----
-    try
-    {
-        cout << "Throwing exception\n";
-
-        // Another way to throw an exception
-        throw runtime_error("Error Occurred");
-
-        // This point is never reached
-        cout << "Can you print me?\n";
-    }
-
-    // All exceptions are based on exception
-    catch (exception &exp)
-    {
-
-        // what() Prints an explanatory string
-        cout << "Handled Exception : " << exp.what() << endl;
-    }
-
-    // If exceptions aren't caught any place else
-    // this will catch it
-    catch (...)
-    {
-        cout << "Default exception catch\n";
-    }
-
-    // ----- END OF EXCEPTION HANDLING EX 2 -----
+    // ----- BONUS PROBLEM -----
+    // Allow the user to enter upper and lowercase
+    // letters by subtracting and adding 1 value
+    // ----- END OF BONUS PROBLEM -----
 
     return 0;
-}
-
-vector<int> Range(int start, int max, int step)
-{
-
-    // Every while statement needs an index to start with
-    int i = start;
-
-    // Will hold returning vector
-    vector<int> range;
-
-    // Make sure we don't go past max value
-    while (i <= max)
-    {
-
-        // Add value to the vector
-        range.push_back(i);
-
-        // Increment the required amount
-        i += step;
-    }
-
-    return range;
 }
