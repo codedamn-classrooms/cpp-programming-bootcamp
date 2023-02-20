@@ -9,79 +9,115 @@
 #include <algorithm>
 using namespace std;
 
-// Function Prototypes
-
-// This function receives pointers
-void AssignAge3(int *pAge);
-
-// Double values in array passed
-void DoubleArray(int *arr, int size);
+// I love the range function in Python so I'll show how to
+// make it in C++
+vector<int> Range(int start, int max, int step);
 
 int main()
 {
 
-    int age = 43;
+    // Create a function that receives a starting value,
+    // max value and an increment amount between
+    // values and receive a vector in return
 
-    // A Pointer stores a address in memory
-    // You declare a pointer to be of the same type as the
-    // data type to which it points
-    // If you are storing the address of an int then the
-    // pointer is an int
-    // When you declare a pointer give it a null value
-    int *pAge = NULL;
+    vector<int> range = Range(1, 10, 2);
 
-    // The reference operator returns the address for a
-    // variable that can be stored in a pointer
-    pAge = &age;
-
-    // Print the address Hexidecimal Number
-    cout << "Address : " << pAge << endl;
-
-    // Get the value at that address with the dereference operator
-    cout << "Value at Address : " << *pAge << endl;
-
-    // We can create a pointer to an array and cycle through
-    // the data with ++ and --
-    int intArray[] = {1, 2, 3, 4};
-    int *pIntArray = intArray;
-
-    cout << "1st " << *pIntArray << " Address " << pIntArray << endl;
-    pIntArray++;
-    cout << "2nd " << *pIntArray << " Address " << pIntArray << endl;
-    pIntArray--;
-    cout << "1st " << *pIntArray << " Address " << pIntArray << endl;
-
-    // You can pass a pointer to a function and then the
-    // function can change that variables value globally
-    // Send the address for age to the function
-    AssignAge3(&age);
-
-    cout << "Pointer Age " << age << endl;
-
-    // Create an array and double values
-    int arr[] = {1, 2, 3, 4};
-    DoubleArray(arr, 4);
-    for (int i = 0; i < 4; ++i)
+    // Cycle through the vector
+    for (auto y : range)
     {
-        cout << "Array " << arr[i] << endl;
+        cout << y << endl;
     }
+
+    // ----- EXCEPTION HANDLING EX 1 -----
+    // Exceptions are errors that occur when things don't
+    // go as expected.
+    // 1. You expect and int and get a string
+    // 2. You expect a file to be available and it isn't
+    // 3. You expect the user to not enter 0 and they do
+
+    // You try to execute code that could be troublesome
+    // and if an error occurs you catch it and throw
+    // it to another block of code for handling
+
+    double num1 = 0, num2 = 0;
+
+    cout << "Enter number 1 : ";
+    cin >> num1;
+    cout << "Enter number 2 : ";
+    cin >> num2;
+
+    try
+    {
+        if (num2 == 0)
+        {
+            throw "Division by zero is not possible";
+        }
+        else
+        {
+
+            printf("%.1f / %.1f = %.2f\n", num1, num2,
+                   (num1 / num2));
+        }
+    }
+
+    catch (const char *exp)
+    {
+        cout << "Error : " << exp << endl;
+    }
+
+    // ----- END OF EXCEPTION HANDLING EX 1 -----
+
+    // ----- EXCEPTION HANDLING EX 2 -----
+    try
+    {
+        cout << "Throwing exception\n";
+
+        // Another way to throw an exception
+        throw runtime_error("Error Occurred");
+
+        // This point is never reached
+        cout << "Can you print me?\n";
+    }
+
+    // All exceptions are based on exception
+    catch (exception &exp)
+    {
+
+        // what() Prints an explanatory string
+        cout << "Handled Exception : " << exp.what() << endl;
+    }
+
+    // If exceptions aren't caught any place else
+    // this will catch it
+    catch (...)
+    {
+        cout << "Default exception catch\n";
+    }
+
+    // ----- END OF EXCEPTION HANDLING EX 2 -----
 
     return 0;
 }
 
-// Function that receives a pointer
-void AssignAge3(int *pAge)
+vector<int> Range(int start, int max, int step)
 {
 
-    // Use dereference operator to change the value at the address
-    *pAge = 22;
-}
+    // Every while statement needs an index to start with
+    int i = start;
 
-// Double values in array
-void DoubleArray(int *arr, int size)
-{
-    for (int i = 0; i < size; ++i)
+    // Will hold returning vector
+    vector<int> range;
+
+    // Make sure we don't go past max value
+    while (i <= max)
     {
-        arr[i] = arr[i] * 2;
+
+        // Add value to the vector
+        range.push_back(i);
+
+        // Increment the required amount
+        i += step;
     }
+
+    return range;
 }
